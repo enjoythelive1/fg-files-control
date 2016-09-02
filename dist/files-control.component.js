@@ -16,6 +16,7 @@ var upload_service_1 = require("./upload.service");
 var mime = require('mime');
 require("rxjs/add/observable/from");
 require("rxjs/add/operator/mergeMap");
+require("rxjs/add/operator/switchMap");
 var FilesControl = (function () {
     function FilesControl(uploadService) {
         this.uploadService = uploadService;
@@ -25,6 +26,7 @@ var FilesControl = (function () {
         this.OnDrop = new core_1.EventEmitter();
         this.OnFileAdded = new core_1.EventEmitter();
         this.OnFilesChanged = new core_1.EventEmitter();
+        this.dragging = false;
         this.filesSubject = new Subject_1.Subject();
         this.touchTriggered = false;
     }
@@ -44,6 +46,8 @@ var FilesControl = (function () {
         var index = this.files.indexOf(file);
         if (index !== -1) {
             this.files.splice(index, 1);
+            this.pushChanges();
+            this.OnFilesChanged.emit(this.files);
         }
     };
     FilesControl.prototype.addFile = function (file, triggerChanged) {
@@ -51,6 +55,7 @@ var FilesControl = (function () {
         this.triggerTouched();
         this.OnFileAdded.emit(file);
         this.files.push(file);
+        this.pushChanges();
         if (triggerChanged) {
             this.OnFilesChanged.emit(this.files);
         }
@@ -62,12 +67,16 @@ var FilesControl = (function () {
         return Observable_1.Observable.from(this.files)
             .mergeMap(function (file) { return file.upload(); });
     };
-    FilesControl.prototype.filesObservable = function () {
-        var _this = this;
-        return Observable_1.Observable.create(function (observer) {
-            observer.next(_this.files);
-        }).concat(this.filesSubject.asObservable());
-    };
+    Object.defineProperty(FilesControl.prototype, "filesObservable", {
+        get: function () {
+            var _this = this;
+            return Observable_1.Observable.create(function (observer) {
+                observer.next(_this.files);
+            }).concat(this.filesSubject.asObservable());
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(FilesControl.prototype, "empty", {
         get: function () {
             return this.files.length != 0;
@@ -106,8 +115,16 @@ var FilesControl = (function () {
         this.files = files.map(function (file) { return new file_1.FileObject(file, _this.uploadService, _this); });
     };
     FilesControl.prototype.registerOnChange = function (fn) {
-        this.changeSubscription = this.OnFilesChanged.subscribe(fn);
+        this.changeSubscription = this.uploadResults.subscribe(fn);
     };
+    Object.defineProperty(FilesControl.prototype, "uploadResults", {
+        get: function () {
+            var _this = this;
+            return this.filesObservable.switchMap(function () { return _this.uploadAll(); });
+        },
+        enumerable: true,
+        configurable: true
+    });
     FilesControl.prototype.registerOnTouched = function (fn) {
         this.onTouched = fn;
     };

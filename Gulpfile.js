@@ -2,6 +2,7 @@ const gulp = require('gulp');
 const path = require('path');
 const ts = require('gulp-typescript');
 const less = require('gulp-less');
+var merge2 = require("merge2");
 
 const tsProject = ts.createProject('tsconfig.json');
 
@@ -14,9 +15,12 @@ gulp.task('less', function () {
 });
 
 gulp.task('compile-back', function () {
-    return gulp.src(['src/**/*.ts', '!src/public/**/*'])
-        .pipe(ts(tsProject))
-        .pipe(gulp.dest('dist'))
+    var tsResult = gulp.src(['src/**/*.ts', '!src/public/**/*'])
+        .pipe(ts(tsProject));
+    return merge2([
+        tsResult.js.pipe(gulp.dest('dist')),
+        tsResult.dts.pipe(gulp.dest('dist'))
+    ]);
 });
 
 

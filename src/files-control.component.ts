@@ -41,7 +41,6 @@ export class FilesControl implements OnInit, OnDestroy, ControlValueAccessor {
     private onTouched: Function;
     @ViewChild('input[type="file"]')
     private fileInput: HTMLInputElement;
-    private changeSubscription: Subscription;
     private touchTriggered = false;
     private changeSubscription: Subscription;
 
