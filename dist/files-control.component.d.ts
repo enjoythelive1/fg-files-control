@@ -27,7 +27,6 @@ export declare class FilesControl implements OnInit, OnDestroy, ControlValueAcce
     private filesSubject;
     private onTouched;
     private fileInput;
-    private changeSubscription;
     private touchTriggered;
     private changeSubscription;
     constructor(uploadService: UploadService);
