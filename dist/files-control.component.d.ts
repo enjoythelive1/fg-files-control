@@ -6,6 +6,7 @@ import { UploadService } from "./upload.service";
 import "rxjs/add/observable/from";
 import "rxjs/add/operator/mergeMap";
 import "rxjs/add/operator/switchMap";
+import "rxjs/add/operator/merge";
 export interface FilesControlOptions {
     types?: string[];
     single?: boolean;

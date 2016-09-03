@@ -12,6 +12,7 @@ import {UploadService} from "./upload.service";
 import "rxjs/add/observable/from";
 import "rxjs/add/operator/mergeMap";
 import "rxjs/add/operator/switchMap";
+import "rxjs/add/operator/merge";
 
 export interface FilesControlOptions {
     types?: string[],
@@ -105,7 +106,7 @@ export class FilesControl implements OnInit, OnDestroy, ControlValueAccessor {
     get filesObservable(): Observable<FileObject[]> {
         return Observable.create((observer: Observer<FileObject[]>) => {
             observer.next(this.files);
-        }).concat(this.filesSubject.asObservable());
+        }).merge(this.filesSubject.asObservable());
     }
 
     get empty(): boolean {

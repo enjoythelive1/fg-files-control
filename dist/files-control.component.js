@@ -17,6 +17,7 @@ var upload_service_1 = require("./upload.service");
 require("rxjs/add/observable/from");
 require("rxjs/add/operator/mergeMap");
 require("rxjs/add/operator/switchMap");
+require("rxjs/add/operator/merge");
 var FilesControl = (function () {
     function FilesControl(uploadService) {
         this.uploadService = uploadService;
@@ -72,7 +73,7 @@ var FilesControl = (function () {
             var _this = this;
             return Observable_1.Observable.create(function (observer) {
                 observer.next(_this.files);
-            }).concat(this.filesSubject.asObservable());
+            }).merge(this.filesSubject.asObservable());
         },
         enumerable: true,
         configurable: true
