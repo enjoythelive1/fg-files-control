@@ -22,7 +22,7 @@ export interface FilesControlOptions {
 }
 
 @Component({
-    selector: 'fg-file-control',
+    selector: 'fg-files-control',
     styles: [`[hidden]{display:none !important}`],
     template: `<input type="file" [accept]="inputAccepts" [multiple]="multiple" (change)="onInputChange" hidden/><ng-content></ng-content>`,
     exportAs: 'fgFileControl'
