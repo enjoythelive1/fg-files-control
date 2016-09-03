@@ -12,8 +12,8 @@ var core_1 = require('@angular/core');
 var file_1 = require("./file");
 var Observable_1 = require("rxjs/Observable");
 var Subject_1 = require("rxjs/Subject");
+var forms_1 = require("@angular/forms");
 var upload_service_1 = require("./upload.service");
-var mime = require('mime');
 require("rxjs/add/observable/from");
 require("rxjs/add/operator/mergeMap");
 require("rxjs/add/operator/switchMap");
@@ -154,7 +154,7 @@ var FilesControl = (function () {
         if (type[0] === '.') {
             return file.name.endsWith(type);
         }
-        var mimeType = mime.lookup(file.name);
+        var mimeType = file.type;
         var wildcardMatches = /([\w-]+)\/\*/i.exec(type);
         if (wildcardMatches && wildcardMatches[1]) {
             return mimeType.startsWith(wildcardMatches[1] + '/');
@@ -238,9 +238,16 @@ var FilesControl = (function () {
     ], FilesControl.prototype, "onDragLeave", null);
     FilesControl = __decorate([
         core_1.Component({
-            selector: 'fg-file-control',
+            selector: 'fg-files-control',
             styles: ["[hidden]{display:none !important}"],
             template: "<input type=\"file\" [accept]=\"inputAccepts\" [multiple]=\"multiple\" (change)=\"onInputChange\" hidden/><ng-content></ng-content>",
+            providers: [
+                {
+                    provide: forms_1.NG_VALUE_ACCESSOR,
+                    useExisting: core_1.forwardRef(function () { return FilesControl; }),
+                    multi: true
+                }
+            ],
             exportAs: 'fgFileControl'
         }), 
         __metadata('design:paramtypes', [upload_service_1.UploadService])

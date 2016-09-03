@@ -9,7 +9,6 @@ import {Observer} from "rxjs/Observer";
 import {Subscription} from "rxjs/Subscription";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {UploadService} from "./upload.service";
-import * as mime from 'mime';
 import "rxjs/add/observable/from";
 import "rxjs/add/operator/mergeMap";
 import "rxjs/add/operator/switchMap";
@@ -178,7 +177,7 @@ export class FilesControl implements OnInit, OnDestroy, ControlValueAccessor {
             return file.name.endsWith(type);
         }
 
-        let mimeType = mime.lookup(file.name);
+        let mimeType = file.type;
         let wildcardMatches = /([\w-]+)\/\*/i.exec(type);
 
         if (wildcardMatches && wildcardMatches[1]) {
