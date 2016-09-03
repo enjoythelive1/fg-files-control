@@ -1,10 +1,13 @@
-import {Component, ViewChild, HostListener, Output, EventEmitter, Input, OnInit, OnDestroy} from '@angular/core'
+import {
+    Component, ViewChild, HostListener, Output, EventEmitter, Input, OnInit, OnDestroy,
+    forwardRef
+} from '@angular/core'
 import {FileObject, FileLikeObject} from "./file";
 import {Observable} from "rxjs/Observable";
 import {Subject} from "rxjs/Subject";
 import {Observer} from "rxjs/Observer";
 import {Subscription} from "rxjs/Subscription";
-import {ControlValueAccessor} from "@angular/forms";
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {UploadService} from "./upload.service";
 import * as mime from 'mime';
 import "rxjs/add/observable/from";
@@ -25,6 +28,13 @@ export interface FilesControlOptions {
     selector: 'fg-files-control',
     styles: [`[hidden]{display:none !important}`],
     template: `<input type="file" [accept]="inputAccepts" [multiple]="multiple" (change)="onInputChange" hidden/><ng-content></ng-content>`,
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => FilesControl),
+            multi: true
+        }
+    ],
     exportAs: 'fgFileControl'
 })
 
