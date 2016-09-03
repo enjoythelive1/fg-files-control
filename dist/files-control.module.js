@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var files_control_component_1 = require("./files-control.component");
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+var upload_service_1 = require("./upload.service");
 var FilesControlModule = (function () {
     function FilesControlModule() {
     }
@@ -18,6 +19,7 @@ var FilesControlModule = (function () {
         core_1.NgModule({
             imports: [forms_1.FormsModule],
             declarations: [files_control_component_1.FilesControl],
+            providers: [upload_service_1.UploadService],
             exports: [files_control_component_1.FilesControl]
         }), 
         __metadata('design:paramtypes', [])
