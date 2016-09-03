@@ -110,7 +110,7 @@ export class FilesControl implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     get empty(): boolean {
-        return this.files.length != 0;
+        return this.files.length === 0;
     }
 
     get inputAccepts() {
