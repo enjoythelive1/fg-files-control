@@ -18,7 +18,7 @@ var FilesControlModule = (function () {
     FilesControlModule = __decorate([
         core_1.NgModule({
             imports: [forms_1.FormsModule],
-            declarations: [files_control_component_1.FilesControl],
+            declarations: [ files_control_component_1.FilesControl],
             providers: [upload_service_1.UploadService],
             exports: [files_control_component_1.FilesControl]
         }), 

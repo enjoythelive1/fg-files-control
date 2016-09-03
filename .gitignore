@@ -2,7 +2,6 @@
 /node_modules/
 /typings/
 .idea/
-dist/*
 rethinkdb_data/
 
 !.gitkeep
