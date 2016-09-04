@@ -80,7 +80,7 @@ var FilesControl = (function () {
     });
     Object.defineProperty(FilesControl.prototype, "empty", {
         get: function () {
-            return this.files.length != 0;
+            return this.files.length === 0;
         },
         enumerable: true,
         configurable: true
@@ -216,7 +216,7 @@ var FilesControl = (function () {
         __metadata('design:type', core_1.EventEmitter)
     ], FilesControl.prototype, "OnFilesChanged", void 0);
     __decorate([
-        core_1.ViewChild('input[type="file"]'), 
+        core_1.ViewChild('input'), 
         __metadata('design:type', HTMLInputElement)
     ], FilesControl.prototype, "fileInput", void 0);
     __decorate([
@@ -241,7 +241,7 @@ var FilesControl = (function () {
         core_1.Component({
             selector: 'fg-files-control',
             styles: ["[hidden]{display:none !important}"],
-            template: "<input type=\"file\" [accept]=\"inputAccepts\" [multiple]=\"multiple\" (change)=\"onInputChange\" hidden/><ng-content></ng-content>",
+            template: "<input #input type=\"file\" [accept]=\"inputAccepts\" [multiple]=\"multiple\" (change)=\"onInputChange\" hidden/><ng-content></ng-content>",
             providers: [
                 {
                     provide: forms_1.NG_VALUE_ACCESSOR,

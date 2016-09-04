@@ -27,7 +27,7 @@ export interface FilesControlOptions {
 @Component({
     selector: 'fg-files-control',
     styles: [`[hidden]{display:none !important}`],
-    template: `<input type="file" [accept]="inputAccepts" [multiple]="multiple" (change)="onInputChange" hidden/><ng-content></ng-content>`,
+    template: `<input #input type="file" [accept]="inputAccepts" [multiple]="multiple" (change)="onInputChange" hidden/><ng-content></ng-content>`,
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
@@ -49,7 +49,7 @@ export class FilesControl implements OnInit, OnDestroy, ControlValueAccessor {
 
     private filesSubject: Subject<FileObject[]> = new Subject<FileObject[]>();
     private onTouched: Function;
-    @ViewChild('input[type="file"]')
+    @ViewChild('input')
     private fileInput: HTMLInputElement;
     private touchTriggered = false;
     private changeSubscription: Subscription;
