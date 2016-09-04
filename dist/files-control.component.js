@@ -19,8 +19,9 @@ require("rxjs/add/operator/mergeMap");
 require("rxjs/add/operator/switchMap");
 require("rxjs/add/operator/merge");
 var FilesControl = (function () {
-    function FilesControl(uploadService) {
+    function FilesControl(uploadService, host) {
         this.uploadService = uploadService;
+        this.host = host;
         this.files = [];
         this.options = {};
         this.OnDragging = new core_1.EventEmitter();
@@ -171,13 +172,17 @@ var FilesControl = (function () {
         newFiles.forEach(function (file) { return _this.addFile(file, false); });
         this.OnFilesChanged.emit(this.files);
     };
-    FilesControl.prototype.onDragStart = function (e) {
-        this.dragging = true;
-        this.OnDragging.emit(this.dragging);
+    FilesControl.prototype.onDragEnter = function (e) {
+        if (e.target === this.host.nativeElement) {
+            this.dragging = true;
+            this.OnDragging.emit(this.dragging);
+        }
     };
-    FilesControl.prototype.onDragEnd = function (e) {
-        this.dragging = false;
-        this.OnDragging.emit(this.dragging);
+    FilesControl.prototype.onDragLeave = function (e) {
+        if (e.target === this.host.nativeElement) {
+            this.dragging = false;
+            this.OnDragging.emit(this.dragging);
+        }
     };
     FilesControl.prototype.onInputChange = function (e) {
         var _this = this;
@@ -226,17 +231,17 @@ var FilesControl = (function () {
         __metadata('design:returntype', void 0)
     ], FilesControl.prototype, "onDrop", null);
     __decorate([
-        core_1.HostListener('dragstart', ['$event']), 
+        core_1.HostListener('dragenter', ['$event']), 
         __metadata('design:type', Function), 
         __metadata('design:paramtypes', [DragEvent]), 
         __metadata('design:returntype', void 0)
-    ], FilesControl.prototype, "onDragStart", null);
+    ], FilesControl.prototype, "onDragEnter", null);
     __decorate([
-        core_1.HostListener('dragend', ['$event']), 
+        core_1.HostListener('dragleave', ['$event']), 
         __metadata('design:type', Function), 
         __metadata('design:paramtypes', [DragEvent]), 
         __metadata('design:returntype', void 0)
-    ], FilesControl.prototype, "onDragEnd", null);
+    ], FilesControl.prototype, "onDragLeave", null);
     FilesControl = __decorate([
         core_1.Component({
             selector: 'fg-files-control',
@@ -251,7 +256,7 @@ var FilesControl = (function () {
             ],
             exportAs: 'fgFileControl'
         }), 
-        __metadata('design:paramtypes', [upload_service_1.UploadService])
+        __metadata('design:paramtypes', [upload_service_1.UploadService, core_1.ElementRef])
     ], FilesControl);
     return FilesControl;
 }());

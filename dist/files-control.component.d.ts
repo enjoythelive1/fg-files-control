@@ -1,4 +1,4 @@
-import { EventEmitter, OnInit, OnDestroy } from '@angular/core';
+import { EventEmitter, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { FileObject, FileLikeObject } from "./file";
 import { Observable } from "rxjs/Observable";
 import { ControlValueAccessor } from "@angular/forms";
@@ -18,6 +18,7 @@ export interface FilesControlOptions {
 }
 export declare class FilesControl implements OnInit, OnDestroy, ControlValueAccessor {
     private uploadService;
+    private host;
     files: FileObject[];
     options: FilesControlOptions;
     OnDragging: EventEmitter<boolean>;
@@ -30,7 +31,7 @@ export declare class FilesControl implements OnInit, OnDestroy, ControlValueAcce
     private fileInput;
     private touchTriggered;
     private changeSubscription;
-    constructor(uploadService: UploadService);
+    constructor(uploadService: UploadService, host: ElementRef);
     ngOnInit(): void;
     ngOnDestroy(): void;
     addFiles(): void;
@@ -51,8 +52,8 @@ export declare class FilesControl implements OnInit, OnDestroy, ControlValueAcce
     createNewFile(file: File): FileObject;
     private match(file, type);
     private onDrop(e);
-    private onDragStart(e);
-    private onDragEnd(e);
+    private onDragEnter(e);
+    private onDragLeave(e);
     private onInputChange(e);
     private pushChanges();
     private triggerTouched();

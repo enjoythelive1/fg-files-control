@@ -54,7 +54,7 @@ export class FilesControl implements OnInit, OnDestroy, ControlValueAccessor {
     private touchTriggered = false;
     private changeSubscription: Subscription;
 
-    constructor(private uploadService: UploadService) {
+    constructor(private uploadService: UploadService, private host: ElementRef) {
 
     }
 
@@ -199,16 +199,20 @@ export class FilesControl implements OnInit, OnDestroy, ControlValueAccessor {
         this.OnFilesChanged.emit(this.files);
     }
 
-    @HostListener('dragstart', ['$event'])
-    private onDragStart(e: DragEvent) {
-        this.dragging = true;
-        this.OnDragging.emit(this.dragging);
+    @HostListener('dragenter', ['$event'])
+    private onDragEnter(e: DragEvent) {
+        if (e.target === this.host.nativeElement) {
+            this.dragging = true;
+            this.OnDragging.emit(this.dragging);
+        }
     }
 
-    @HostListener('dragend', ['$event'])
-    private onDragEnd(e: DragEvent) {
-        this.dragging = false;
-        this.OnDragging.emit(this.dragging);
+    @HostListener('dragleave', ['$event'])
+    private onDragLeave(e: DragEvent) {
+        if (e.target === this.host.nativeElement) {
+            this.dragging = false;
+            this.OnDragging.emit(this.dragging);
+        }
     }
 
     private onInputChange(e: Event) {
