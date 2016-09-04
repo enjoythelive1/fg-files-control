@@ -230,13 +230,13 @@ var FilesControl = (function () {
         __metadata('design:type', Function), 
         __metadata('design:paramtypes', [DragEvent]), 
         __metadata('design:returntype', void 0)
-    ], FilesControl.prototype, "onDragEnter", null);
+    ], FilesControl.prototype, "onDragStart", null);
     __decorate([
         core_1.HostListener('dragleave', ['$event']), 
         __metadata('design:type', Function), 
         __metadata('design:paramtypes', [DragEvent]), 
         __metadata('design:returntype', void 0)
-    ], FilesControl.prototype, "onDragLeave", null);
+    ], FilesControl.prototype, "onDragEnd", null);
     FilesControl = __decorate([
         core_1.Component({
             selector: 'fg-files-control',
