@@ -41,7 +41,7 @@ var FilesControl = (function () {
         }
     };
     FilesControl.prototype.addFiles = function () {
-        this.fileInput.click();
+        this.fileInput.nativeElement.click();
     };
     FilesControl.prototype.remove = function (file) {
         var index = this.files.indexOf(file);
@@ -181,10 +181,10 @@ var FilesControl = (function () {
     };
     FilesControl.prototype.onInputChange = function (e) {
         var _this = this;
-        Array.from(this.fileInput.files).filter(this.isFileValid).map(this.createNewFile).forEach(function (file) { return _this.addFile(file, false); });
+        Array.from(this.fileInput.nativeElement.files).filter(this.isFileValid).map(this.createNewFile).forEach(function (file) { return _this.addFile(file, false); });
         this.OnFilesChanged.emit(this.files);
         this.pushChanges();
-        this.fileInput.value = '';
+        this.fileInput.nativeElement.value = '';
     };
     FilesControl.prototype.pushChanges = function () {
         this.filesSubject.next(this.files);
@@ -217,7 +217,7 @@ var FilesControl = (function () {
     ], FilesControl.prototype, "OnFilesChanged", void 0);
     __decorate([
         core_1.ViewChild('input'), 
-        __metadata('design:type', HTMLInputElement)
+        __metadata('design:type', core_1.ElementRef)
     ], FilesControl.prototype, "fileInput", void 0);
     __decorate([
         core_1.HostListener('drop', ['$event']), 

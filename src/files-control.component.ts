@@ -1,6 +1,6 @@
 import {
     Component, ViewChild, HostListener, Output, EventEmitter, Input, OnInit, OnDestroy,
-    forwardRef
+    forwardRef, ElementRef
 } from '@angular/core'
 import {FileObject, FileLikeObject} from "./file";
 import {Observable} from "rxjs/Observable";
@@ -50,7 +50,7 @@ export class FilesControl implements OnInit, OnDestroy, ControlValueAccessor {
     private filesSubject: Subject<FileObject[]> = new Subject<FileObject[]>();
     private onTouched: Function;
     @ViewChild('input')
-    private fileInput: HTMLInputElement;
+    private fileInput: ElementRef;
     private touchTriggered = false;
     private changeSubscription: Subscription;
 
@@ -70,7 +70,7 @@ export class FilesControl implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     addFiles() {
-        this.fileInput.click();
+        this.fileInput.nativeElement.click();
     }
 
     remove(file: FileObject) {
@@ -212,10 +212,10 @@ export class FilesControl implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     private onInputChange(e: Event) {
-        Array.from(this.fileInput.files).filter(this.isFileValid).map(this.createNewFile).forEach((file: FileObject) => this.addFile(file, false));
+        Array.from(this.fileInput.nativeElement.files).filter(this.isFileValid).map(this.createNewFile).forEach((file: FileObject) => this.addFile(file, false));
         this.OnFilesChanged.emit(this.files);
         this.pushChanges();
-        this.fileInput.value = '';
+        this.fileInput.nativeElement.value = '';
     }
 
     private pushChanges() {
