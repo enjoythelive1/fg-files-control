@@ -51,8 +51,8 @@ export declare class FilesControl implements OnInit, OnDestroy, ControlValueAcce
     createNewFile(file: File): FileObject;
     private match(file, type);
     private onDrop(e);
-    private onDragEnter(e);
-    private onDragLeave(e);
+    private onDragStart(e);
+    private onDragEnd(e);
     private onInputChange(e);
     private pushChanges();
     private triggerTouched();

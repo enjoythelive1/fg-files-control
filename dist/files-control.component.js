@@ -171,11 +171,11 @@ var FilesControl = (function () {
         newFiles.forEach(function (file) { return _this.addFile(file, false); });
         this.OnFilesChanged.emit(this.files);
     };
-    FilesControl.prototype.onDragEnter = function (e) {
+    FilesControl.prototype.onDragStart = function (e) {
         this.dragging = true;
         this.OnDragging.emit(this.dragging);
     };
-    FilesControl.prototype.onDragLeave = function (e) {
+    FilesControl.prototype.onDragEnd = function (e) {
         this.dragging = false;
         this.OnDragging.emit(this.dragging);
     };
@@ -226,17 +226,17 @@ var FilesControl = (function () {
         __metadata('design:returntype', void 0)
     ], FilesControl.prototype, "onDrop", null);
     __decorate([
-        core_1.HostListener('dragenter', ['$event']), 
+        core_1.HostListener('dragstart', ['$event']), 
         __metadata('design:type', Function), 
         __metadata('design:paramtypes', [DragEvent]), 
         __metadata('design:returntype', void 0)
-    ], FilesControl.prototype, "onDragEnter", null);
+    ], FilesControl.prototype, "onDragStart", null);
     __decorate([
-        core_1.HostListener('dragleave', ['$event']), 
+        core_1.HostListener('dragend', ['$event']), 
         __metadata('design:type', Function), 
         __metadata('design:paramtypes', [DragEvent]), 
         __metadata('design:returntype', void 0)
-    ], FilesControl.prototype, "onDragLeave", null);
+    ], FilesControl.prototype, "onDragEnd", null);
     FilesControl = __decorate([
         core_1.Component({
             selector: 'fg-files-control',

@@ -199,14 +199,14 @@ export class FilesControl implements OnInit, OnDestroy, ControlValueAccessor {
         this.OnFilesChanged.emit(this.files);
     }
 
-    @HostListener('dragenter', ['$event'])
-    private onDragEnter(e: DragEvent) {
+    @HostListener('dragstart', ['$event'])
+    private onDragStart(e: DragEvent) {
         this.dragging = true;
         this.OnDragging.emit(this.dragging);
     }
 
-    @HostListener('dragleave', ['$event'])
-    private onDragLeave(e: DragEvent) {
+    @HostListener('dragend', ['$event'])
+    private onDragEnd(e: DragEvent) {
         this.dragging = false;
         this.OnDragging.emit(this.dragging);
     }
