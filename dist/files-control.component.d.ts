@@ -53,6 +53,7 @@ export declare class FilesControl implements OnInit, OnDestroy, ControlValueAcce
     private match(file, type);
     private onDrop(e);
     private onDragEnter(e);
+    private onDragOver(e);
     private onDragLeave(e);
     private onInputChange(e);
     private pushChanges();

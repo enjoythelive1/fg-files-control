@@ -210,6 +210,15 @@ export class FilesControl implements OnInit, OnDestroy, ControlValueAccessor {
         }
     }
 
+    @HostListener('dragover', ['$event'])
+    private onDragOver(e: DragEvent) {
+        if (e.target === this.host.nativeElement && Array.prototype.some.call(e.dataTransfer.types, (type) => type === 'Files')) {
+            this.dragging = true;
+            this.OnDragging.emit(this.dragging);
+            e.preventDefault();
+        }
+    }
+
     @HostListener('dragleave', ['$event'])
     private onDragLeave(e: DragEvent) {
         if (e.target === this.host.nativeElement && Array.prototype.some.call(e.dataTransfer.types, (type) => type === 'Files')) {

@@ -181,6 +181,13 @@ var FilesControl = (function () {
             e.preventDefault();
         }
     };
+    FilesControl.prototype.onDragOver = function (e) {
+        if (e.target === this.host.nativeElement && Array.prototype.some.call(e.dataTransfer.types, function (type) { return type === 'Files'; })) {
+            this.dragging = true;
+            this.OnDragging.emit(this.dragging);
+            e.preventDefault();
+        }
+    };
     FilesControl.prototype.onDragLeave = function (e) {
         if (e.target === this.host.nativeElement && Array.prototype.some.call(e.dataTransfer.types, function (type) { return type === 'Files'; })) {
             this.dragging = false;
@@ -239,6 +246,12 @@ var FilesControl = (function () {
         __metadata('design:paramtypes', [DragEvent]), 
         __metadata('design:returntype', void 0)
     ], FilesControl.prototype, "onDragEnter", null);
+    __decorate([
+        core_1.HostListener('dragover', ['$event']), 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', [DragEvent]), 
+        __metadata('design:returntype', void 0)
+    ], FilesControl.prototype, "onDragOver", null);
     __decorate([
         core_1.HostListener('dragleave', ['$event']), 
         __metadata('design:type', Function), 
