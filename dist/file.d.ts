@@ -4,7 +4,7 @@ import { Observable } from "rxjs/Observable";
 import "rxjs/add/observable/of";
 import "rxjs/add/observable/throw";
 import "rxjs/add/observable/empty";
-import "rxjs/add/operator/publish";
+import "rxjs/add/operator/share";
 export interface UrlContainer {
     url?: string;
     preview?: string;
@@ -19,8 +19,9 @@ export declare class FileObject {
     private uploadService;
     private filesControl;
     protected upload$: Observable<any>;
+    private previewUrl;
     constructor(file: FileLikeObject, uploadService: UploadService, filesControl: FilesControl);
     upload(): Observable<any>;
     remove(): void;
-    previewUrl: any;
+    getPreviewUrl(): any;
 }
