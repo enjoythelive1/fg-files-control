@@ -175,14 +175,14 @@ var FilesControl = (function () {
         e.stopPropagation();
     };
     FilesControl.prototype.onDragEnter = function (e) {
-        if (e.target === this.host.nativeElement && e.dataTransfer.files.length) {
+        if (e.target === this.host.nativeElement && Array.prototype.some.call(e.dataTransfer.types, function (type) { return type === 'Files'; })) {
             this.dragging = true;
             this.OnDragging.emit(this.dragging);
             e.preventDefault();
         }
     };
     FilesControl.prototype.onDragLeave = function (e) {
-        if (e.target === this.host.nativeElement && e.dataTransfer.files.length) {
+        if (e.target === this.host.nativeElement && Array.prototype.some.call(e.dataTransfer.types, function (type) { return type === 'Files'; })) {
             this.dragging = false;
             this.OnDragging.emit(this.dragging);
         }

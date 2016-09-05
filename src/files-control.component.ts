@@ -203,7 +203,7 @@ export class FilesControl implements OnInit, OnDestroy, ControlValueAccessor {
 
     @HostListener('dragenter', ['$event'])
     private onDragEnter(e: DragEvent) {
-        if (e.target === this.host.nativeElement && e.dataTransfer.files.length) {
+        if (e.target === this.host.nativeElement && Array.prototype.some.call(e.dataTransfer.types, (type) => type === 'Files')) {
             this.dragging = true;
             this.OnDragging.emit(this.dragging);
             e.preventDefault();
@@ -212,7 +212,7 @@ export class FilesControl implements OnInit, OnDestroy, ControlValueAccessor {
 
     @HostListener('dragleave', ['$event'])
     private onDragLeave(e: DragEvent) {
-        if (e.target === this.host.nativeElement && e.dataTransfer.files.length) {
+        if (e.target === this.host.nativeElement && Array.prototype.some.call(e.dataTransfer.types, (type) => type === 'Files')) {
             this.dragging = false;
             this.OnDragging.emit(this.dragging);
         }
