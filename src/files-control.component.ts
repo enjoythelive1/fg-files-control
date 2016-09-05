@@ -197,7 +197,7 @@ export class FilesControl implements OnInit, OnDestroy, ControlValueAccessor {
         this.dragging = false;
         this.OnDragging.emit(this.dragging);
 
-        let newFiles = Array.from(e.dataTransfer.files).filter(this.isFileValid).map(this.createNewFile);
+        let newFiles = Array.from(e.dataTransfer.files).filter(this.isFileValid, this).map(this.createNewFile, this);
         this.OnDrop.emit(newFiles);
         newFiles.forEach((file: FileObject) => this.addFile(file, false));
         this.OnFilesChanged.emit(this.files);
@@ -231,7 +231,7 @@ export class FilesControl implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     private onInputChange(e: Event) {
-        Array.from(this.fileInput.nativeElement.files).filter(this.isFileValid).map(this.createNewFile).forEach((file: FileObject) => this.addFile(file, false));
+        Array.from(this.fileInput.nativeElement.files).filter(this.isFileValid, this).map(this.createNewFile, this).forEach((file: FileObject) => this.addFile(file, false));
         this.OnFilesChanged.emit(this.files);
         this.pushChanges();
         this.fileInput.nativeElement.value = '';

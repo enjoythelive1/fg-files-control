@@ -170,7 +170,7 @@ var FilesControl = (function () {
         var _this = this;
         this.dragging = false;
         this.OnDragging.emit(this.dragging);
-        var newFiles = Array.from(e.dataTransfer.files).filter(this.isFileValid).map(this.createNewFile);
+        var newFiles = Array.from(e.dataTransfer.files).filter(this.isFileValid, this).map(this.createNewFile, this);
         this.OnDrop.emit(newFiles);
         newFiles.forEach(function (file) { return _this.addFile(file, false); });
         this.OnFilesChanged.emit(this.files);
@@ -198,7 +198,7 @@ var FilesControl = (function () {
     };
     FilesControl.prototype.onInputChange = function (e) {
         var _this = this;
-        Array.from(this.fileInput.nativeElement.files).filter(this.isFileValid).map(this.createNewFile).forEach(function (file) { return _this.addFile(file, false); });
+        Array.from(this.fileInput.nativeElement.files).filter(this.isFileValid, this).map(this.createNewFile, this).forEach(function (file) { return _this.addFile(file, false); });
         this.OnFilesChanged.emit(this.files);
         this.pushChanges();
         this.fileInput.nativeElement.value = '';
