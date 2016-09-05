@@ -5,7 +5,7 @@ import {Observer} from "rxjs/Observer";
 import "rxjs/add/observable/of";
 import "rxjs/add/observable/throw";
 import "rxjs/add/observable/empty";
-import "rxjs/add/operator/publish";
+import "rxjs/add/operator/share";
 
 export interface UrlContainer {
     url?: string;
@@ -19,9 +19,10 @@ export type FileLikeObject=string|File|Blob|UrlContainer|PathContainer;
 
 export class FileObject {
     protected upload$: Observable<any>;
+    private previewUrl:Observable<string>;
 
     constructor(public file: FileLikeObject, private uploadService: UploadService, private filesControl: FilesControl) {
-
+        this.previewUrl = this.getPreviewUrl().share();
     }
 
     upload() {
@@ -39,7 +40,7 @@ export class FileObject {
         this.filesControl.remove(this);
     }
 
-    get previewUrl() {
+    getPreviewUrl() {
         if (this.file instanceof Blob) {
             return Observable.create((observer: Observer<string>) => {
                 let fileReader = new FileReader();
