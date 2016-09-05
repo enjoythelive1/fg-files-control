@@ -264,7 +264,7 @@ var FilesControl = (function () {
         core_1.Component({
             selector: 'fg-files-control',
             styles: ["[hidden]{display:none !important}"],
-            template: "<input #input type=\"file\" [accept]=\"inputAccepts\" [multiple]=\"multiple\" (change)=\"onInputChange\" hidden/><ng-content></ng-content>",
+            template: "<input #input type=\"file\" [accept]=\"inputAccepts\" [multiple]=\"multiple\" (change)=\"onInputChange($event)\" hidden/><ng-content></ng-content>",
             providers: [
                 {
                     provide: forms_1.NG_VALUE_ACCESSOR,

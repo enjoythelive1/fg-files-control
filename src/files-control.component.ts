@@ -27,7 +27,7 @@ export interface FilesControlOptions {
 @Component({
     selector: 'fg-files-control',
     styles: [`[hidden]{display:none !important}`],
-    template: `<input #input type="file" [accept]="inputAccepts" [multiple]="multiple" (change)="onInputChange" hidden/><ng-content></ng-content>`,
+    template: `<input #input type="file" [accept]="inputAccepts" [multiple]="multiple" (change)="onInputChange($event)" hidden/><ng-content></ng-content>`,
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
