@@ -221,7 +221,7 @@ var FilesControl = (function () {
         __metadata('design:type', core_1.EventEmitter)
     ], FilesControl.prototype, "OnDragging", void 0);
     __decorate([
-        core_1.Output('drop'), 
+        core_1.Output('dropped'), 
         __metadata('design:type', core_1.EventEmitter)
     ], FilesControl.prototype, "OnDrop", void 0);
     __decorate([

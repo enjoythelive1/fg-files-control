@@ -42,7 +42,7 @@ export class FilesControl implements OnInit, OnDestroy, ControlValueAccessor {
     public files: FileObject[] = [];
     @Input('options') public options: FilesControlOptions = {};
     @Output('dragging') public OnDragging: EventEmitter<boolean> = new EventEmitter<boolean>();
-    @Output('drop') public OnDrop: EventEmitter<FileObject[]> = new EventEmitter<FileObject[]>();
+    @Output('dropped') public OnDrop: EventEmitter<FileObject[]> = new EventEmitter<FileObject[]>();
     @Output('fileAdded') public OnFileAdded: EventEmitter<FileObject> = new EventEmitter<FileObject>();
     @Output('filesChanged') public OnFilesChanged: EventEmitter<FileObject[]> = new EventEmitter<FileObject[]>();
     public dragging: boolean = false;
