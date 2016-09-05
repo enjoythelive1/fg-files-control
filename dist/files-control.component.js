@@ -171,15 +171,18 @@ var FilesControl = (function () {
         this.OnDrop.emit(newFiles);
         newFiles.forEach(function (file) { return _this.addFile(file, false); });
         this.OnFilesChanged.emit(this.files);
+        e.preventDefault();
+        e.stopPropagation();
     };
     FilesControl.prototype.onDragEnter = function (e) {
-        if (e.target === this.host.nativeElement) {
+        if (e.target === this.host.nativeElement && e.dataTransfer.files.length) {
             this.dragging = true;
             this.OnDragging.emit(this.dragging);
+            e.preventDefault();
         }
     };
     FilesControl.prototype.onDragLeave = function (e) {
-        if (e.target === this.host.nativeElement) {
+        if (e.target === this.host.nativeElement && e.dataTransfer.files.length) {
             this.dragging = false;
             this.OnDragging.emit(this.dragging);
         }

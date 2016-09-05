@@ -197,19 +197,22 @@ export class FilesControl implements OnInit, OnDestroy, ControlValueAccessor {
         this.OnDrop.emit(newFiles);
         newFiles.forEach((file: FileObject) => this.addFile(file, false));
         this.OnFilesChanged.emit(this.files);
+        e.preventDefault();
+        e.stopPropagation();
     }
 
     @HostListener('dragenter', ['$event'])
     private onDragEnter(e: DragEvent) {
-        if (e.target === this.host.nativeElement) {
+        if (e.target === this.host.nativeElement && e.dataTransfer.files.length) {
             this.dragging = true;
             this.OnDragging.emit(this.dragging);
+            e.preventDefault();
         }
     }
 
     @HostListener('dragleave', ['$event'])
     private onDragLeave(e: DragEvent) {
-        if (e.target === this.host.nativeElement) {
+        if (e.target === this.host.nativeElement && e.dataTransfer.files.length) {
             this.dragging = false;
             this.OnDragging.emit(this.dragging);
         }
