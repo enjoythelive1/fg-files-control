@@ -197,31 +197,30 @@ export class FilesControl implements OnInit, OnDestroy, ControlValueAccessor {
         this.OnDrop.emit(newFiles);
         newFiles.forEach((file: FileObject) => this.addFile(file, false));
         this.OnFilesChanged.emit(this.files);
-        e.preventDefault();
-        e.stopPropagation();
+        return false;
     }
 
     @HostListener('dragenter', ['$event'])
     private onDragEnter(e: DragEvent) {
-        if (e.target === this.host.nativeElement && Array.prototype.some.call(e.dataTransfer.types, (type) => type === 'Files')) {
+        if (Array.prototype.some.call(e.dataTransfer.types, (type) => type === 'Files')) {
             this.dragging = true;
             this.OnDragging.emit(this.dragging);
-            e.preventDefault();
+            return false;
         }
     }
 
     @HostListener('dragover', ['$event'])
     private onDragOver(e: DragEvent) {
-        if (e.target === this.host.nativeElement && Array.prototype.some.call(e.dataTransfer.types, (type) => type === 'Files')) {
+        if (Array.prototype.some.call(e.dataTransfer.types, (type) => type === 'Files')) {
             this.dragging = true;
             this.OnDragging.emit(this.dragging);
-            e.preventDefault();
+            return false;
         }
     }
 
     @HostListener('dragleave', ['$event'])
     private onDragLeave(e: DragEvent) {
-        if (e.target === this.host.nativeElement && Array.prototype.some.call(e.dataTransfer.types, (type) => type === 'Files')) {
+        if (Array.prototype.some.call(e.dataTransfer.types, (type) => type === 'Files')) {
             this.dragging = false;
             this.OnDragging.emit(this.dragging);
         }

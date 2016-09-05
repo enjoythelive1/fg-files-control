@@ -171,25 +171,24 @@ var FilesControl = (function () {
         this.OnDrop.emit(newFiles);
         newFiles.forEach(function (file) { return _this.addFile(file, false); });
         this.OnFilesChanged.emit(this.files);
-        e.preventDefault();
-        e.stopPropagation();
+        return false;
     };
     FilesControl.prototype.onDragEnter = function (e) {
-        if (e.target === this.host.nativeElement && Array.prototype.some.call(e.dataTransfer.types, function (type) { return type === 'Files'; })) {
+        if (Array.prototype.some.call(e.dataTransfer.types, function (type) { return type === 'Files'; })) {
             this.dragging = true;
             this.OnDragging.emit(this.dragging);
-            e.preventDefault();
+            return false;
         }
     };
     FilesControl.prototype.onDragOver = function (e) {
-        if (e.target === this.host.nativeElement && Array.prototype.some.call(e.dataTransfer.types, function (type) { return type === 'Files'; })) {
+        if (Array.prototype.some.call(e.dataTransfer.types, function (type) { return type === 'Files'; })) {
             this.dragging = true;
             this.OnDragging.emit(this.dragging);
-            e.preventDefault();
+            return false;
         }
     };
     FilesControl.prototype.onDragLeave = function (e) {
-        if (e.target === this.host.nativeElement && Array.prototype.some.call(e.dataTransfer.types, function (type) { return type === 'Files'; })) {
+        if (Array.prototype.some.call(e.dataTransfer.types, function (type) { return type === 'Files'; })) {
             this.dragging = false;
             this.OnDragging.emit(this.dragging);
         }
