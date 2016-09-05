@@ -19,10 +19,10 @@ export type FileLikeObject=string|File|Blob|UrlContainer|PathContainer;
 
 export class FileObject {
     protected upload$: Observable<any>;
-    private previewUrl:Observable<string>;
+    private previewUrl$:Observable<string>;
 
     constructor(public file: FileLikeObject, private uploadService: UploadService, private filesControl: FilesControl) {
-        this.previewUrl = this.getPreviewUrl().share();
+
     }
 
     upload() {
@@ -40,7 +40,15 @@ export class FileObject {
         this.filesControl.remove(this);
     }
 
-    getPreviewUrl() {
+    get previewUrl() {
+        if(!this.previewUrl$){
+            this.previewUrl$ = this.getPreviewUrl().share();
+        }
+
+        return this.previewUrl$;
+    }
+
+    private getPreviewUrl() {
         if (this.file instanceof Blob) {
             return Observable.create((observer: Observer<string>) => {
                 let fileReader = new FileReader();

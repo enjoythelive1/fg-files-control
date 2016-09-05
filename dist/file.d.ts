@@ -19,9 +19,10 @@ export declare class FileObject {
     private uploadService;
     private filesControl;
     protected upload$: Observable<any>;
-    private previewUrl;
+    private previewUrl$;
     constructor(file: FileLikeObject, uploadService: UploadService, filesControl: FilesControl);
     upload(): Observable<any>;
     remove(): void;
-    getPreviewUrl(): any;
+    previewUrl: Observable<string>;
+    private getPreviewUrl();
 }

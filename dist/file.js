@@ -9,12 +9,11 @@ var FileObject = (function () {
         this.file = file;
         this.uploadService = uploadService;
         this.filesControl = filesControl;
-        this.previewUrl = this.getPreviewUrl().share();
     }
     FileObject.prototype.upload = function () {
         if (this.file instanceof Blob) {
             if (!this.upload$) {
-                this.upload$ = this.uploadService.upload(this, this.filesControl).publish();
+                this.upload$ = this.uploadService.upload(this, this.filesControl).share();
             }
             return this.upload$;
         }
@@ -25,6 +24,16 @@ var FileObject = (function () {
     FileObject.prototype.remove = function () {
         this.filesControl.remove(this);
     };
+    Object.defineProperty(FileObject.prototype, "previewUrl", {
+        get: function () {
+            if (!this.previewUrl$) {
+                this.previewUrl$ = this.getPreviewUrl().share();
+            }
+            return this.previewUrl$;
+        },
+        enumerable: true,
+        configurable: true
+    });
     FileObject.prototype.getPreviewUrl = function () {
         var _this = this;
         if (this.file instanceof Blob) {
