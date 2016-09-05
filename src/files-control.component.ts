@@ -114,7 +114,7 @@ export class FilesControl implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     get inputAccepts() {
-        if (this.options.types) {
+        if (this.options && this.options.types) {
             return this.options.types.join(',');
         } else {
             return '';
@@ -122,11 +122,11 @@ export class FilesControl implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     get multiple() {
-        return !this.options.single && (!this.options.limit || this.options.limit <= 1)
+        return !this.options || (!this.options.single && (!this.options.limit || this.options.limit <= 1))
     }
 
     get fieldName() {
-        return this.options.fieldName || 'file';
+        return (this.options && this.options.fieldName ) || 'file';
     }
 
     writeValue(files: FileLikeObject[]): void {
@@ -146,6 +146,10 @@ export class FilesControl implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     isFileValid(file: File) {
+        if (!this.options) {
+            return true;
+        }
+
         if (this.options.maxSize && file.size > this.options.maxSize) {
             return false;
         }

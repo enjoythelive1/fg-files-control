@@ -88,7 +88,7 @@ var FilesControl = (function () {
     });
     Object.defineProperty(FilesControl.prototype, "inputAccepts", {
         get: function () {
-            if (this.options.types) {
+            if (this.options && this.options.types) {
                 return this.options.types.join(',');
             }
             else {
@@ -100,14 +100,14 @@ var FilesControl = (function () {
     });
     Object.defineProperty(FilesControl.prototype, "multiple", {
         get: function () {
-            return !this.options.single && (!this.options.limit || this.options.limit <= 1);
+            return !this.options || (!this.options.single && (!this.options.limit || this.options.limit <= 1));
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(FilesControl.prototype, "fieldName", {
         get: function () {
-            return this.options.fieldName || 'file';
+            return (this.options && this.options.fieldName) || 'file';
         },
         enumerable: true,
         configurable: true
@@ -132,6 +132,9 @@ var FilesControl = (function () {
     };
     FilesControl.prototype.isFileValid = function (file) {
         var _this = this;
+        if (!this.options) {
+            return true;
+        }
         if (this.options.maxSize && file.size > this.options.maxSize) {
             return false;
         }

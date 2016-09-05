@@ -1,6 +1,6 @@
 {
   "name": "files-control",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "Angular control to manage images uploads",
   "main": "dist/main.js",
   "dependencies": {
