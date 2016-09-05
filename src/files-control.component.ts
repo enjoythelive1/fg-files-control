@@ -197,6 +197,8 @@ export class FilesControl implements OnInit, OnDestroy, ControlValueAccessor {
         this.OnDrop.emit(newFiles);
         newFiles.forEach((file: FileObject) => this.addFile(file, false));
         this.OnFilesChanged.emit(this.files);
+        e.preventDefault();
+        e.stopPropagation();
     }
 
     @HostListener('dragenter', ['$event'])
